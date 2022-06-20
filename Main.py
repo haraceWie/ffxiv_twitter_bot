@@ -70,7 +70,8 @@ def twitterEventReceived():
             return ('', HTTPStatus.OK)
              
         Twitter.processDirectMessageEvent(messageObject)    
-                
+    elif 'tweet_create_events' in requestJson.keys():
+        return ('', HTTPStatus.OK)
     else:
         #Event type not supported
         return ('', HTTPStatus.OK)

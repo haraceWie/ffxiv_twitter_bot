@@ -1,14 +1,13 @@
 from TwitterAPI import TwitterAPI
 
 import os
+CONSUMER_KEY = 'v2C0ANZKl0kmlZVgKNgMPBNEM'
+CONSUMER_SECRET = 'nH3Hc3KZOnBLem3YLIaO2CLg3xIie1jX2JT02kZLKUppWEy8Lm'
 
-CONSUMER_KEY = os.environ.get('CONSUMER_KEY', None)
-CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET', None)
+ACCESS_TOKEN = '1538767694127693825-oL63xkDbDFl6lkLawzvgvtv6qPsiym'
+ACCESS_TOKEN_SECRET = '8O0seCq4opzOwEhD1sDnZ4tzwxpNWJ2xCN2G2kl7IZoPF'
 
-ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN', None)
-ACCESS_TOKEN_SECRET = os.environ.get('ACCESS_TOKEN_SECRET', None)
-
-ENVNAME = os.environ.get('ENVNAME', None)
+ENVNAME = 'dev'
 
 twitterAPI = TwitterAPI(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
@@ -17,4 +16,5 @@ r = twitterAPI.request('account_activity/all/:%s/subscriptions' %
 
 #TODO: check possible status codes and convert to nice messages
 print (r.status_code)
+print (r.text)
        
