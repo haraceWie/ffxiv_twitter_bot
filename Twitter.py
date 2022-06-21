@@ -1,5 +1,5 @@
-from TwitterAPI import TwitterAPI
-
+#from TwitterAPI import TwitterAPI
+from tweepy import tweepy
 import os
 
 CONSUMER_KEY = os.environ.get('CONSUMER_KEY', None)
@@ -12,28 +12,29 @@ ACCESS_TOKEN_SECRET = os.environ.get('ACCESS_TOKEN_SECRET', None)
 def initApiObject():
     
     #user authentication
-    api = TwitterAPI(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET)    
-    
-    return api				
+    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+
+    return auth
  
 def processDirectMessageEvent(eventObj):
     
-    messageText = eventObj.get('message_data').get('text')
-    userID = eventObj.get('sender_id')
+    # messageText = eventObj.get('message_data').get('text')
+    # userID = eventObj.get('sender_id')
 
-    twitterAPI = initApiObject()
+    # twitterAPI = initApiObject()
             
-    messageReplyJson = '{"event":{"type":"message_create","message_create":{"target":{"recipient_id":"' + userID + '"},"message_data":{"text":"Hello World!"}}}}'
+    # messageReplyJson = '{"event":{"type":"message_create","message_create":{"target":{"recipient_id":"' + userID + '"},"message_data":{"text":"Hello World!"}}}}'
         
-    #ignore casing
-    if(messageText.lower() == 'hello bot'):
+    # #ignore casing
+    # if(messageText.lower() == 'hello bot'):
             
-        r = twitterAPI.request('direct_messages/events/new', messageReplyJson)
+    #     r = twitterAPI.request('direct_messages/events/new', messageReplyJson)
           
     return None      
 
 def processLikeEvent(eventObj):
-    userHandle = eventObj.get('user', {}).get('screen_name')
+    #userHandle = eventObj.get('user', {}).get('screen_name')
     
     print ('This user liked one of your tweets: %s' % userHandle) 
     
@@ -49,10 +50,14 @@ def processMentionEvent(eventObj):
         targetId = replyId
     else : 
         targetId = originId
-    twitterAPI = initApiObject()
+
+    auth = initApiObject()
             
             
-    r = twitterAPI.request('statuses/retweet/%s.json' % targetId, {})
-    
+    #r = twitterAPI.request('statuses/retweet/%s.json' % targetId, {})
+    api = tweepy.API(auth)
+
+    api.retweet(targetId)
+
     print ('Mention Tweet Result: %s' % r.text) 
     return None           
