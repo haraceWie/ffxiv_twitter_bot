@@ -58,4 +58,5 @@ def processMentionEvent(eventObj):
             
     r = twitterAPI.request('statuses/retweet/:%s.json' % targetId, {})
     
+    print ('Mention Tweet Result: %s' % r.text) 
     return None           
