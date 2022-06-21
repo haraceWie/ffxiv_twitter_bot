@@ -45,7 +45,8 @@ def processMentionEvent(eventObj):
 
     message = eventObj.get('text')
 
-    print(message)
+    if(message.lower() not in "@ffxiv_party_") :
+        return None
 
 
     replyId = eventObj.get('in_reply_to_status_id_str')
