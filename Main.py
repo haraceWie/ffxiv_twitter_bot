@@ -71,6 +71,9 @@ def twitterEventReceived():
              
         Twitter.processDirectMessageEvent(messageObject)    
     elif 'tweet_create_events' in requestJson.keys():
+        messageObject = requestJson['tweet_create_events'][0]
+
+        Twitter.processMentionEvent(messageObject)
         return ('', HTTPStatus.OK)
     else:
         #Event type not supported

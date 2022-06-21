@@ -38,3 +38,24 @@ def processLikeEvent(eventObj):
     print ('This user liked one of your tweets: %s' % userHandle) 
     
     return None           
+
+
+def processMentionEvent(eventObj):
+    replyId = eventObj.get('in_reply_to_status_id_str')
+    originId = eventObj.get('id_str')
+    targetId = ""
+
+    if replyId :
+        targetId = replyId
+    else : 
+        targetId = originId
+    twitterAPI = initApiObject()
+            
+    #messageReplyJson = '{"event":{"type":"message_create","message_create":{"target":{"recipient_id":"' + userID + '"},"message_data":{"text":"Hello World!"}}}}'
+        
+    #ignore casing
+    #if(messageText.lower() == 'hello bot'):
+            
+    r = twitterAPI.request('statuses/retweet/:%s.json' % targetId, {})
+    
+    return None           
