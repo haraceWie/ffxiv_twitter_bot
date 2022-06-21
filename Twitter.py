@@ -59,5 +59,5 @@ def processMentionEvent(eventObj):
 
     api.retweet(targetId)
 
-    print ('Mention Tweet Result: %s' % r.text) 
+    
     return None           
