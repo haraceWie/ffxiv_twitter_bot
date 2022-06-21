@@ -46,6 +46,7 @@ def processMentionEvent(eventObj):
     message = eventObj.get('text')
 
     if(message.lower() not in "@ffxiv_party_") :
+        print('message not contains %s' % message)
         return None
 
 
