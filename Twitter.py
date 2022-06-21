@@ -42,6 +42,12 @@ def processLikeEvent(eventObj):
 
 
 def processMentionEvent(eventObj):
+
+    message = eventObj.get('text')
+
+    print(message)
+
+
     replyId = eventObj.get('in_reply_to_status_id_str')
     originId = eventObj.get('id_str')
     targetId = ""
@@ -50,6 +56,8 @@ def processMentionEvent(eventObj):
         targetId = replyId
     else : 
         targetId = originId
+
+    
 
     auth = initApiObject()
             
