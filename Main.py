@@ -42,8 +42,9 @@ def twitterEventReceived():
     requestJson = request.get_json()
 
     #dump to console for debugging purposes
-    print(json.dumps(requestJson, indent=4, sort_keys=True))
-            
+    print(json.dumps(requestJson, indent=0, sort_keys=True))
+    
+
     if 'favorite_events' in requestJson.keys():
         #Tweet Favourite Event, process that
         likeObject = requestJson['favorite_events'][0]
@@ -71,8 +72,10 @@ def twitterEventReceived():
              
         Twitter.processDirectMessageEvent(messageObject)    
     elif 'tweet_create_events' in requestJson.keys():
-        messageObject = requestJson['tweet_create_events'][0]
+        print('issued tweet_create_events')
 
+        messageObject = requestJson['tweet_create_events'][0]
+        
         Twitter.processMentionEvent(messageObject)
         return ('', HTTPStatus.OK)
     else:
