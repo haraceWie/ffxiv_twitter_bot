@@ -1,5 +1,5 @@
 #from TwitterAPI import TwitterAPI
-from tweepy import tweepy
+import tweepy
 import os
 
 CONSUMER_KEY = os.environ.get('CONSUMER_KEY', None)
