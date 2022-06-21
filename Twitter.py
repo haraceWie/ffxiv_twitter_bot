@@ -60,11 +60,13 @@ def processMentionEvent(eventObj):
 
     
     if(eventObj.get("retweeted")) :
-        print('issue Unretweet')
+        print('issue Unretweet begin')
         api.unretweet(targetId)
+        sleep(3)
+        print('issue Unretweet end')
 
-    print('issue retweet')
+    print('issue retweet begin')
     api.retweet(targetId)
-
+    print('issue retweet end')
     
     return None           
