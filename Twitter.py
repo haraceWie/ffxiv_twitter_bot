@@ -69,9 +69,13 @@ def processMentionEvent(eventObj):
     api = tweepy.API(auth)
     try:
         retweetUserList = api.get_retweeter_ids(targetId)
+        print(retweetUserList)
+
         
-        if('1538767694127693825' in retweetUserList):
+        if(1538767694127693825 in retweetUserList):
+            print('unretweet begin')
             api.unretweet(targetId)
+            print('unretweet end')
     except:
         print('except get retweet user')
     
