@@ -51,12 +51,8 @@ def processMentionEvent(eventObj):
         targetId = originId
     twitterAPI = initApiObject()
             
-    #messageReplyJson = '{"event":{"type":"message_create","message_create":{"target":{"recipient_id":"' + userID + '"},"message_data":{"text":"Hello World!"}}}}'
-        
-    #ignore casing
-    #if(messageText.lower() == 'hello bot'):
             
-    r = twitterAPI.request('statuses/retweet/:%s.json' % targetId, {})
+    r = twitterAPI.request('statuses/retweet/%s.json' % targetId, {})
     
     print ('Mention Tweet Result: %s' % r.text) 
     return None           
