@@ -64,7 +64,7 @@ def processMentionEvent(eventObj):
             
             
     #r = twitterAPI.request('statuses/retweet/%s.json' % targetId, {})
-    
+    print('issue retweet begin')
     api = tweepy.API(auth)
 
     retweetUserList = api.get_retweets(targetId, 100, True)
@@ -75,7 +75,7 @@ def processMentionEvent(eventObj):
     #     sleep(3)
     #     print('issue Unretweet end')
 
-    print('issue retweet begin')
+    
     api.retweet(targetId)
     print('issue retweet end')
     
