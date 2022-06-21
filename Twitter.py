@@ -67,12 +67,13 @@ def processMentionEvent(eventObj):
     
     api = tweepy.API(auth)
 
-    
-    if(eventObj.get("retweeted")) :
-        print('issue Unretweet begin')
-        api.unretweet(targetId)
-        sleep(3)
-        print('issue Unretweet end')
+    retweetUserList = api.get_retweets(targetId, 100, True)
+    print(retweetUserList)
+    # if(eventObj.get("retweeted")) :
+    #     print('issue Unretweet begin')
+    #     api.unretweet(targetId)
+    #     sleep(3)
+    #     print('issue Unretweet end')
 
     print('issue retweet begin')
     api.retweet(targetId)
