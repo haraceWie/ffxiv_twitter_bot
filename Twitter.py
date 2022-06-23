@@ -58,14 +58,14 @@ def processMentionEvent(eventObj):
     
     api.retweet(targetId)
 
-    #리트윗 성공 시 리트윗 성공이라는 답글을 단다
-    try:
-        print('mention begin')
-        api.update_status(status = "RT 완료", in_reply_to_status_id = originId, auto_populate_reply_metadata=True)
-        print('mention end')
+    # #리트윗 성공 시 리트윗 성공이라는 답글을 단다
+    # try:
+    #     print('mention begin')
+    #     api.update_status(status = "RT 완료", in_reply_to_status_id = originId, auto_populate_reply_metadata=True)
+    #     print('mention end')
 
-    except:
-        print('except mention user')
+    # except:
+    #     print('except mention user')
 
     print('issue retweet end')
     
