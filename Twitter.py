@@ -61,7 +61,7 @@ def processMentionEvent(eventObj):
     #리트윗 성공 시 리트윗 성공이라는 답글을 단다
     try:
         print('mention begin')
-        api.update_status(status = "RT 완료", in_reply_to_status_id = originId)
+        #api.update_status(status = "RT 완료", in_reply_to_status_id = originId)
         print('mention end')
 
     except:
