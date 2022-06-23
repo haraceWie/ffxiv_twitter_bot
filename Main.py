@@ -38,40 +38,8 @@ def twitterCrcValidation():
 #TODO: add event-specific behaviours beyond Direct Message and Like
 @app.route("/webhook", methods=["POST"])
 def twitterEventReceived():
-	  		
     requestJson = request.get_json()
-
-    #dump to console for debugging purposes
-    print(json.dumps(requestJson, indent=0, sort_keys=True))
-    
-
-    if 'favorite_events' in requestJson.keys():
-        #Tweet Favourite Event, process that
-        likeObject = requestJson['favorite_events'][0]
-        userId = likeObject.get('user', {}).get('id')          
-              
-        #event is from myself so ignore (Favourite event fires when you send a DM too)   
-        if userId == CURRENT_USER_ID:
-            return ('', HTTPStatus.OK)
-            
-        Twitter.processLikeEvent(likeObject)
-                          
-    elif 'direct_message_events' in requestJson.keys():
-        #DM recieved, process that
-        eventType = requestJson['direct_message_events'][0].get("type")
-        messageObject = requestJson['direct_message_events'][0].get('message_create', {})
-        messageSenderId = messageObject.get('sender_id')   
-        
-        #event type isnt new message so ignore
-        if eventType != 'message_create':
-            return ('', HTTPStatus.OK)
-            
-        #message is from myself so ignore (Message create fires when you send a DM too)   
-        if messageSenderId == CURRENT_USER_ID:
-            return ('', HTTPStatus.OK)
-             
-        Twitter.processDirectMessageEvent(messageObject)    
-    elif 'tweet_create_events' in requestJson.keys():
+    if 'tweet_create_events' in requestJson.keys():
         print('issued tweet_create_events')
 
         messageObject = requestJson['tweet_create_events'][0]

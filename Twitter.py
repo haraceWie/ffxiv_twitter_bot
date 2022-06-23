@@ -16,30 +16,6 @@ def initApiObject():
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
     return auth
- 
-def processDirectMessageEvent(eventObj):
-    
-    # messageText = eventObj.get('message_data').get('text')
-    # userID = eventObj.get('sender_id')
-
-    # twitterAPI = initApiObject()
-            
-    # messageReplyJson = '{"event":{"type":"message_create","message_create":{"target":{"recipient_id":"' + userID + '"},"message_data":{"text":"Hello World!"}}}}'
-        
-    # #ignore casing
-    # if(messageText.lower() == 'hello bot'):
-            
-    #     r = twitterAPI.request('direct_messages/events/new', messageReplyJson)
-          
-    return None      
-
-def processLikeEvent(eventObj):
-    #userHandle = eventObj.get('user', {}).get('screen_name')
-    
-    print ('This user liked one of your tweets: %s' % userHandle) 
-    
-    return None           
-
 
 def processMentionEvent(eventObj):
 
@@ -59,14 +35,15 @@ def processMentionEvent(eventObj):
     else : 
         targetId = originId
 
-    
-
     auth = initApiObject()
             
             
     #r = twitterAPI.request('statuses/retweet/%s.json' % targetId, {})
     print('issue retweet begin')
     api = tweepy.API(auth)
+
+
+    # 리트윗한 유저 리스트를 가져와서 이미 리트윗을 했으면 리트윗을 해제한다.
     try:
         retweetUserList = api.get_retweeter_ids(targetId)
         print(retweetUserList)
@@ -79,9 +56,17 @@ def processMentionEvent(eventObj):
     except:
         print('except get retweet user')
     
-
-    
     api.retweet(targetId)
+
+    #리트윗 성공 시 리트윗 성공이라는 답글을 단다
+    try:
+        print('mention begin')
+        api.update_status(status = "RT 완료", in_reply_to_status_id = originId)
+        print('mention end')
+
+    except:
+        print('except mention user')
+
     print('issue retweet end')
     
     return None           
