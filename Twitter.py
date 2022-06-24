@@ -1,6 +1,7 @@
 #from TwitterAPI import TwitterAPI
 import tweepy
 import os
+import telegram
 
 CONSUMER_KEY = os.environ.get('CONSUMER_KEY', None)
 CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET', None)
@@ -57,6 +58,13 @@ def processMentionEvent(eventObj):
         print('except get retweet user')
     
     api.retweet(targetId)
+
+    try:
+        token = "5461873552:AAGd2lqr8v29cNDSgWPxYH71FD18lTWt5UQ."
+        bot = telegram.Bot(token)
+        bot.sendMessage(chat_id='529686074', text='%s' % message)
+    except:
+        print('except send telegram')
 
     # #리트윗 성공 시 리트윗 성공이라는 답글을 단다
     # try:

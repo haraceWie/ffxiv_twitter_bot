@@ -8,3 +8,4 @@ requests>=2.20.0
 requests-oauthlib==1.2.0
 tweepy==4.10.0
 Werkzeug>=0.15.3
+python-telegram-bot==13.12
