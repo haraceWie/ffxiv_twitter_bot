@@ -60,7 +60,7 @@ def processMentionEvent(eventObj):
     api.retweet(targetId)
 
     try:
-        token = "5461873552:AAGd2lqr8v29cNDSgWPxYH71FD18lTWt5UQ."
+        token = "5461873552:AAGd2lqr8v29cNDSgWPxYH71FD18lTWt5UQ"
         bot = telegram.Bot(token)
         bot.sendMessage(chat_id='529686074', text='%s' % message)
     except:
