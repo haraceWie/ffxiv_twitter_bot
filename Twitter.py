@@ -69,7 +69,9 @@ def processMentionEvent(eventObj):
         replyOrgUserID = eventObj.get('user').get('id')
         replyOrgUserScreenNm = eventObj.get('user').get('screen_name')
 
-        bot.sendMessage(chat_id='529686074', text='%s(%s)\n%s(%s)\n%s' % (replyUserScreenNm, replyUserID, replyOrgUserScreenNm, replyOrgUserID, message))
+        
+
+        bot.sendMessage(chat_id='529686074', text='%s (%s)\n%s (%s)\n%s -> %s\n%s' % (replyUserScreenNm, replyUserID, replyOrgUserScreenNm, replyOrgUserID, replyId, originId, message))
     except:
         print('except send telegram')
 
