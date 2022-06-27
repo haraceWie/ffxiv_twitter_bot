@@ -107,13 +107,13 @@ def processMentionEvent(eventObj):
         print('except send telegram')
 
     # #리트윗 성공 시 RT 완료이라는 답글을 단다
-    try:
-        print('mention begin')
-        api.update_status(status = "@%s RT 완료" % replyOrgUserScreenNm, in_reply_to_status_id = originId)
-        print('mention end')
+    # try:
+    #     print('mention begin')
+    #     api.update_status(status = "@%s RT 완료" % replyOrgUserScreenNm, in_reply_to_status_id = originId)
+    #     print('mention end')
 
-    except:
-        print('except mention user')
+    # except:
+    #     print('except mention user')
 
     print('issue retweet end')
     
