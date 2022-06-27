@@ -35,26 +35,42 @@ def processMentionEvent(eventObj):
     bot = telegram.Bot(token)
 
     
+    
+
     #답글이 있는데.
-    if(replyId):
-        
+    if(replyId):    
         #유저가 서로 다를경우
         if(replyUserID != replyOrgUserID):
             try:
-                bot.sendMessage(chat_id='529686074', text='Slice[%s]\nFilterd Lv1\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+                bot.sendMessage(chat_id='529686074', text='Slice[%s]\nFilterd Another User\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
             except:
                 print('except send telegram')
             
             return None
     
+    #알티인 경우
+    if(message[0:2] == 'RT') :
+        try:
+            bot.sendMessage(chat_id='529686074', text='Slice[%s]\nFilterd RT\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+        except:
+            print('except send telegram')
+            
+        return None
+
     #언급이 없는 멘션은 제외
     if('@ffxiv_party_' not in message.lower()) :
         try:
-            bot.sendMessage(chat_id='529686074', text='Slice[%s]\nFilterd Lv2\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+            bot.sendMessage(chat_id='529686074', text='Slice[%s]\nFilterd NO Mention\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
         except:
             print('except send telegram')
         return None
-        
+    
+    if(replyUserScreenNm == 'FFXIV_PFinder' or replyOrgUserScreenNm == "FFXIV_PFinder") :
+        try:
+            bot.sendMessage(chat_id='529686074', text='Slice[%s]\nFFXIV_PFinder Blocked\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+        except:
+            print('except send telegram')
+        return None
 
     targetId = ""
 
@@ -90,14 +106,14 @@ def processMentionEvent(eventObj):
     except:
         print('except send telegram')
 
-    # #리트윗 성공 시 리트윗 성공이라는 답글을 단다
-    # try:
-    #     print('mention begin')
-    #     api.update_status(status = "RT 완료", in_reply_to_status_id = originId, auto_populate_reply_metadata=True)
-    #     print('mention end')
+    # #리트윗 성공 시 RT 완료이라는 답글을 단다
+    try:
+        print('mention begin')
+        api.update_status(status = "@%s RT 완료" % replyOrgUserScreenNm, in_reply_to_status_id = originId)
+        print('mention end')
 
-    # except:
-    #     print('except mention user')
+    except:
+        print('except mention user')
 
     print('issue retweet end')
     
