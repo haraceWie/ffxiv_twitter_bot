@@ -34,13 +34,14 @@ def processMentionEvent(eventObj):
     token = "5461873552:AAGd2lqr8v29cNDSgWPxYH71FD18lTWt5UQ"
     bot = telegram.Bot(token)
 
+    
     #답글이 있는데.
     if(replyId):
         
         #유저가 서로 다를경우
         if(replyUserID != replyOrgUserID):
             try:
-                bot.sendMessage(chat_id='529686074', text='Filterd Lv1\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+                bot.sendMessage(chat_id='529686074', text='Slice[%s]\nFilterd Lv1\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
             except:
                 print('except send telegram')
             
@@ -49,7 +50,7 @@ def processMentionEvent(eventObj):
     #언급이 없는 멘션은 제외
     if('@ffxiv_party_' not in message.lower()) :
         try:
-            bot.sendMessage(chat_id='529686074', text='Filterd Lv2\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+            bot.sendMessage(chat_id='529686074', text='Slice[%s]\nFilterd Lv2\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
         except:
             print('except send telegram')
         return None
@@ -85,7 +86,7 @@ def processMentionEvent(eventObj):
     api.retweet(targetId)
 
     try:
-        bot.sendMessage(chat_id='529686074', text='Success\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+        bot.sendMessage(chat_id='529686074', text='Slice[%s]\nSuccess\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
     except:
         print('except send telegram')
 
