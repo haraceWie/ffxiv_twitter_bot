@@ -22,13 +22,39 @@ def processMentionEvent(eventObj):
 
     message = eventObj.get('text')
 
-    if('@ffxiv_party_' not in message.lower()) :
-        print('message not contains %s' % message)
-        return None
-
+    replyUserID = eventObj.get('in_reply_to_user_id')
+    replyUserScreenNm = eventObj.get('in_reply_to_screen_name')
+        
+    replyOrgUserID = eventObj.get('user').get('id')
+    replyOrgUserScreenNm = eventObj.get('user').get('screen_name')
 
     replyId = eventObj.get('in_reply_to_status_id_str')
     originId = eventObj.get('id_str')
+
+    token = "5461873552:AAGd2lqr8v29cNDSgWPxYH71FD18lTWt5UQ"
+    bot = telegram.Bot(token)
+
+    #답글이 있는데.
+    if(replyId):
+        
+        #유저가 서로 다를경우
+        if(replyUserID != replyOrgUserID):
+            try:
+                bot.sendMessage(chat_id='529686074', text='Filterd Lv1\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+            except:
+                print('except send telegram')
+            
+            return None
+    
+    #언급이 없는 멘션은 제외
+    if('@ffxiv_party_' not in message.lower()) :
+        try:
+            bot.sendMessage(chat_id='529686074', text='Filterd Lv2\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+        except:
+            print('except send telegram')
+        return None
+        
+
     targetId = ""
 
     if replyId :
@@ -47,7 +73,6 @@ def processMentionEvent(eventObj):
     # 리트윗한 유저 리스트를 가져와서 이미 리트윗을 했으면 리트윗을 해제한다.
     try:
         retweetUserList = api.get_retweeter_ids(targetId)
-        print(retweetUserList)
 
         
         if(1538767694127693825 in retweetUserList):
@@ -60,18 +85,7 @@ def processMentionEvent(eventObj):
     api.retweet(targetId)
 
     try:
-        token = "5461873552:AAGd2lqr8v29cNDSgWPxYH71FD18lTWt5UQ"
-        bot = telegram.Bot(token)
-
-        replyUserID = eventObj.get('in_reply_to_user_id')
-        replyUserScreenNm = eventObj.get('in_reply_to_screen_name')
-        
-        replyOrgUserID = eventObj.get('user').get('id')
-        replyOrgUserScreenNm = eventObj.get('user').get('screen_name')
-
-        
-
-        bot.sendMessage(chat_id='529686074', text='%s (%s)\n%s (%s)\n%s -> %s\n%s' % (replyUserScreenNm, replyUserID, replyOrgUserScreenNm, replyOrgUserID, replyId, originId, message))
+        bot.sendMessage(chat_id='529686074', text='Success\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
     except:
         print('except send telegram')
 
