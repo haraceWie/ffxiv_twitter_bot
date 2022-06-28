@@ -109,12 +109,19 @@ def processMentionEvent(eventObj):
     except:
         print('except get retweet user')
     
-    api.retweet(targetId)
-
-    try:
-        bot.sendMessage(chat_id='529686074', text='Slice[%s]\nSuccess\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, replyContents))
-    except:
-        print('except send telegram')
+    #취소가 포함 시 리트윗 취소
+    if("취소" in message):
+        try:
+            bot.sendMessage(chat_id='529686074', text='Slice[%s]\nUnRetweet Success\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, replyContents))
+            api.unretweet(targetId)
+        except:
+            print('except send telegram')
+    else:
+        try:
+            api.retweet(targetId)
+            bot.sendMessage(chat_id='529686074', text='Slice[%s]\nSuccess\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, replyContents))
+        except:
+            print('except send telegram')
 
     # #리트윗 성공 시 RT 완료이라는 답글을 단다
     # try:
