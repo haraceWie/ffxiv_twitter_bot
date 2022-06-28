@@ -34,8 +34,6 @@ def processMentionEvent(eventObj):
     token = "5461873552:AAGd2lqr8v29cNDSgWPxYH71FD18lTWt5UQ"
     bot = telegram.Bot(token)
 
-    
-    
 
     #답글이 있는데.
     if(replyId):    
@@ -80,11 +78,19 @@ def processMentionEvent(eventObj):
         targetId = originId
 
     auth = initApiObject()
-            
-            
-    #r = twitterAPI.request('statuses/retweet/%s.json' % targetId, {})
     print('issue retweet begin')
     api = tweepy.API(auth)
+        
+    replyContents = ''
+    try:
+        # 텍스트의 금지단어 확인
+        status = api.get_status(targetId, tweet_mode = "extended")
+        replyContents = status.full_text 
+        
+    except:
+        print('except get tweetStatus')
+
+
 
 
     # 리트윗한 유저 리스트를 가져와서 이미 리트윗을 했으면 리트윗을 해제한다.
@@ -102,7 +108,7 @@ def processMentionEvent(eventObj):
     api.retweet(targetId)
 
     try:
-        bot.sendMessage(chat_id='529686074', text='Slice[%s]\nSuccess\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+        bot.sendMessage(chat_id='529686074', text='Slice[%s]\nSuccess\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, replyContents))
     except:
         print('except send telegram')
 
