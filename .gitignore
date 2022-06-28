@@ -2,3 +2,5 @@
 .env
 *.pyc
 venv
+example-scripts/
+enviroment.txt

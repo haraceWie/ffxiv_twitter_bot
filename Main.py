@@ -9,13 +9,12 @@ CURRENT_USER_ID = os.environ.get('CURRENT_USER_ID', None)
 	     
 app = Flask(__name__)	
 
-#generic index route    
 @app.route('/')
 def default_route():        
     return send_from_directory('www', 'index.html')    		      
 
-#The GET method for webhook should be used for the CRC check
-#TODO: add header validation (compare_digest https://docs.python.org/3.6/library/hmac.html)
+
+# CRC CHECK
 @app.route("/webhook", methods=["GET"])
 def twitterCrcValidation():
     
@@ -34,8 +33,10 @@ def twitterCrcValidation():
 
     return json.dumps(response)   
         
-#The POST method for webhook should be used for all other API events
-#TODO: add event-specific behaviours beyond Direct Message and Like
+
+
+
+# 트위터 웹훅 수신부 
 @app.route("/webhook", methods=["POST"])
 def twitterEventReceived():
     requestJson = request.get_json()
@@ -47,14 +48,12 @@ def twitterEventReceived():
         Twitter.processMentionEvent(messageObject)
         return ('', HTTPStatus.OK)
     else:
-        #Event type not supported
         return ('', HTTPStatus.OK)
     
     return ('', HTTPStatus.OK)
 
                 	    
 if __name__ == '__main__':
-    # Bind to PORT if defined, otherwise default to 65010.
     port = int(os.environ.get('PORT', 65010))
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers
