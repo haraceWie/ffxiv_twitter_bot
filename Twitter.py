@@ -80,13 +80,17 @@ def processMentionEvent(eventObj):
     auth = initApiObject()
     print('issue retweet begin')
     api = tweepy.API(auth)
-        
+
     replyContents = ''
     try:
         # 텍스트의 금지단어 확인
         status = api.get_status(targetId, tweet_mode = "extended")
         replyContents = status.full_text 
         
+        blameList = ['공론화', 'evernote', '에버노트', '짜증', '공익', 'ㅅㅂ', 'ㅁㅊ', 'ㅆㅂ', '시발', '미친', '병신', 'ㅄ', 'ㅂㅅ']
+        if(replyContents in blameList):
+            bot.sendMessage(chat_id='529686074', text='Slice[%s]\Filterd Blame\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (message[0:2], replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, replyContents))
+            return None
     except:
         print('except get tweetStatus')
 
