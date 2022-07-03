@@ -144,8 +144,8 @@ def processMentionEvent(eventObj):
         cursor.close()
         conn.close()
 
-    except:
-        print('except db connect') 
+    except Exception as e:                             # 예외가 발생했을 때 실행됨
+        print('except db connect %s' % e)
     # #리트윗 성공 시 RT 완료이라는 답글을 단다
     # try:
     #     print('mention begin')
