@@ -135,10 +135,10 @@ def processMentionEvent(eventObj):
 
 
     try: 
-        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        #conn = psycopg2.connect(dbname='dear42v48752o6', user='isaqnovgiqqjow', password='44fb147180e478a7059983d8e84b60b8aa48a1c0b2ce6c31689abb5398dc3787', host='ec2-44-206-11-200.compute-1.amazonaws.com', port=5432)
+        #conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        conn = psycopg2.connect(dbname='dear42v48752o6', user='isaqnovgiqqjow', password='44fb147180e478a7059983d8e84b60b8aa48a1c0b2ce6c31689abb5398dc3787', host='ec2-44-206-11-200.compute-1.amazonaws.com', port=5432)
         cursor = conn.cursor()
-        sql = " INSERT INTO {schema}.{table}(tweetid, shorttext, fulltext, tweeturl) VALUES ('{tweetid}','{shorttext}','{fulltext}','{tweeturl}') ;".format(schema='public',table='Tweet',tweetid=targetId,shorttext=message,fulltext=replyContents,tweeturl='https://twitter.com/%s/status/%s' % (targetUserScreenNm, targetId))
+        sql = " INSERT INTO {schema}.\"{table}\"(tweetid, shorttext, fulltext, tweeturl) VALUES ('{tweetid}','{shorttext}','{fulltext}','{tweeturl}') ;".format(schema='public',table='Tweet',tweetid=targetId,shorttext=message,fulltext=replyContents,tweeturl='https://twitter.com/%s/status/%s' % (targetUserScreenNm, targetId))
         cursor.execute(sql)
         conn.commit()
 
