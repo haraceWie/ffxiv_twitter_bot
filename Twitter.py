@@ -2,6 +2,7 @@
 import tweepy
 import os
 import telegram
+import psycopg2   
 
 CONSUMER_KEY = os.environ.get('CONSUMER_KEY', None)
 CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET', None)
@@ -12,6 +13,10 @@ ACCESS_TOKEN_SECRET = os.environ.get('ACCESS_TOKEN_SECRET', None)
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', None)
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', None)
 
+DATABASE_URL = os.environ.get('DATABASE_URL', None)
+     
+
+
 def initApiObject():
     
     #user authentication
@@ -19,6 +24,7 @@ def initApiObject():
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
     return auth
+
 
 def processMentionEvent(eventObj):
 
@@ -72,11 +78,14 @@ def processMentionEvent(eventObj):
         return None
 
     targetId = ""
-
+    targetUserScreenNm = ""
     if replyId :
         targetId = replyId
+        targetUserScreenNm = replyUserScreenNm
+
     else : 
         targetId = originId
+        targetUserScreenNm = replyOrgUserScreenNm
 
     auth = initApiObject()
     print('issue retweet begin')
@@ -124,6 +133,19 @@ def processMentionEvent(eventObj):
         except:
             print('except send telegram')
 
+
+    try: 
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        cursor = conn.db.cursor()
+        sql = " INSERT INTO {schema}.{table}(tweetid, shorttext, fulltext, tweeturl) VALUES ({tweetid},{shorttext},{fulltext},{tweeturl}) ;".format(schema='public',table='Tweet',tweetid=targetId,shorttext=message,fulltext=replyContents,tweeturl='https://twitter.com/%s/status/%s\n%s' % (targetUserScreenNm, targetId))
+        cursor.execute(sql)
+        conn.db.commit()
+
+        cursor.close()
+        conn.close()
+
+    except:
+        print('except db connect') 
     # #리트윗 성공 시 RT 완료이라는 답글을 단다
     # try:
     #     print('mention begin')
