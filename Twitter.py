@@ -136,10 +136,10 @@ def processMentionEvent(eventObj):
 
     try: 
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        cursor = conn.db.cursor()
+        cursor = conn.cursor()
         sql = " INSERT INTO {schema}.{table}(tweetid, shorttext, fulltext, tweeturl) VALUES ({tweetid},{shorttext},{fulltext},{tweeturl}) ;".format(schema='public',table='Tweet',tweetid=targetId,shorttext=message,fulltext=replyContents,tweeturl='https://twitter.com/%s/status/%s\n%s' % (targetUserScreenNm, targetId))
         cursor.execute(sql)
-        conn.db.commit()
+        conn.commit()
 
         cursor.close()
         conn.close()
