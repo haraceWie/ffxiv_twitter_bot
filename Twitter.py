@@ -147,6 +147,7 @@ def processMentionEvent(eventObj):
             print('except send telegram')
 
 
+    conn = None
     try: 
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         #conn = psycopg2.connect(dbname='dear42v48752o6', user='isaqnovgiqqjow', password='44fb147180e478a7059983d8e84b60b8aa48a1c0b2ce6c31689abb5398dc3787', host='ec2-44-206-11-200.compute-1.amazonaws.com', port=5432)
@@ -166,8 +167,11 @@ def processMentionEvent(eventObj):
         cursor.close()
         conn.close()
 
-    except Exception as e:                             # 예외가 발생했을 때 실행됨
-        print('except db connect %s' % e)
+    except Exception as e:     
+        if(conn):
+            conn.close()
+
+        print('except db connect : %s' % e)
     # #리트윗 성공 시 RT 완료이라는 답글을 단다
     # try:
     #     print('mention begin')
@@ -180,3 +184,27 @@ def processMentionEvent(eventObj):
     print('issue retweet end')
     
     return None           
+
+
+def getTweetListFromDatabase() :
+    conn = None
+    try: 
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+        #conn = psycopg2.connect(dbname='dear42v48752o6', user='isaqnovgiqqjow', password='44fb147180e478a7059983d8e84b60b8aa48a1c0b2ce6c31689abb5398dc3787', host='ec2-44-206-11-200.compute-1.amazonaws.com', port=5432)
+        cursor = conn.cursor()
+
+        sql = " SELECT * FROM {schema}.\"{table}\" ORDER BY InsDts DESC;".format(schema='public',table='Tweet')
+        cursor.execute(sql)
+        rows = cursor.fetchall()
+
+        print(rows)
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+    except Exception as e:     
+        if(conn):
+            conn.close()
+
+        print('except db connect : %s' % e)

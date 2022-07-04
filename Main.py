@@ -33,7 +33,17 @@ def twitterCrcValidation():
 
     return json.dumps(response)   
         
+# CRC CHECK
+@app.route("/api/tweet", methods=["GET"])
+def getTweetListFromDatabase():
+    
 
+    Twitter.getTweetListFromDatabase()
+    response = {
+
+    }
+
+    return json.dumps(response)   
 
 
 # 트위터 웹훅 수신부 
