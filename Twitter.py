@@ -219,7 +219,7 @@ def getTweetListFromDatabase() :
             tweetUrl = row[2]
             insDts = row[3]
             convertRow = {
-                'TagList' : "",
+                'TagList' : [],
                 'TweetUrl' : tweetUrl,
                 'InsDts' : insDts,
                 'FullText' : fullText,
