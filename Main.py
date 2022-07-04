@@ -9,6 +9,7 @@ CURRENT_USER_ID = os.environ.get('CURRENT_USER_ID', None)
 	     
 app = Flask(__name__)	
 
+
 @app.route('/')
 def default_route():        
     return send_from_directory('www', 'index.html')    		      
@@ -45,7 +46,7 @@ def getTweetListFromDatabase():
     return json.dumps({
         "success" : True,
         "result" : response
-    })   
+    }, ensure_ascii=False, indent=4)   
 
 
 # 트위터 웹훅 수신부 
