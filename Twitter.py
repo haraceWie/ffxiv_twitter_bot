@@ -219,15 +219,14 @@ def getTweetListFromDatabase() :
             tweetUrl = row[2]
             insDts = row[3]
             convertRow = {
-                'tagList' : "",
-                'tweetUrl' : tweetUrl,
-                'insDts' : insDts,
-                'fullText' : fullText,
-                
+                'TagList' : "",
+                'TweetUrl' : tweetUrl,
+                'InsDts' : insDts,
+                'FullText' : fullText,
             }
             for keyword in PREDEFINED_KEYWORD:
-                if (keyword.Keyword in fullText) :
-                    convertRow.tagList.append(keyword.TagList)
+                if (keyword.get('Keyword') in fullText) :
+                    convertRow.get('TagList').append(keyword.get('TagList'))
 
             convertRows.append(convertRow) 
 
