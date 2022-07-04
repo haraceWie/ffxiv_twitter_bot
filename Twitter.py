@@ -139,7 +139,7 @@ def processMentionEvent(eventObj):
         #conn = psycopg2.connect(dbname='dear42v48752o6', user='isaqnovgiqqjow', password='44fb147180e478a7059983d8e84b60b8aa48a1c0b2ce6c31689abb5398dc3787', host='ec2-44-206-11-200.compute-1.amazonaws.com', port=5432)
         cursor = conn.cursor()
 
-        cursor.execute('CALL public."insTweet"(%s)' % str({
+        cursor.execute("CALL public.\"insTweet\"('%s')" % str({
             "tweetid" : targetId,
             "shorttext" : message,
             "fulltext" : replyContents,
