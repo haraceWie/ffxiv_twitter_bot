@@ -63,13 +63,7 @@ def processMentionEvent(eventObj):
             
         return None
 
-    #언급이 없는 멘션은 제외
-    if('@ffxiv_party_' not in message.lower()) :
-        try:
-            bot.sendMessage(chat_id=TELEGRAM_CHAT_ID, text='Filterd NO Mention\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
-        except:
-            print('except send telegram')
-        return None
+
     
     if(replyUserScreenNm == 'FFXIV_PFinder' or replyOrgUserScreenNm == "FFXIV_PFinder") :
         try:
@@ -87,6 +81,8 @@ def processMentionEvent(eventObj):
     else : 
         targetId = originId
         targetUserScreenNm = replyOrgUserScreenNm
+
+
 
     auth = initApiObject()
     print('issue retweet begin')
@@ -106,7 +102,23 @@ def processMentionEvent(eventObj):
         print('except get tweetStatus')
 
 
-
+    #언급이 없는 멘션은 제외
+    if(replyId) :     
+        if('@ffxiv_party_' not in message.lower()) :
+            
+            try:
+                bot.sendMessage(chat_id=TELEGRAM_CHAT_ID, text='Filterd NO Mention\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+            except:
+                print('except send telegram')
+            return None
+    else :
+        if('@ffxiv_party_' not in replyContents.lower()) :
+            
+            try:
+                bot.sendMessage(chat_id=TELEGRAM_CHAT_ID, text='Filterd NO Mention\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
+            except:
+                print('except send telegram')
+            return None
 
     # 리트윗한 유저 리스트를 가져와서 이미 리트윗을 했으면 리트윗을 해제한다.
     try:
