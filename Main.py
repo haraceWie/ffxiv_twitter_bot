@@ -38,12 +38,14 @@ def twitterCrcValidation():
 def getTweetListFromDatabase():
     
 
-    Twitter.getTweetListFromDatabase()
-    response = {
+    response = Twitter.getTweetListFromDatabase()
 
-    }
+    
 
-    return json.dumps(response)   
+    return json.dumps({
+        "success" : True,
+        "result" : response
+    })   
 
 
 # 트위터 웹훅 수신부 

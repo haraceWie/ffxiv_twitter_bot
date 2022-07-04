@@ -16,7 +16,18 @@ TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', None)
 
 DATABASE_URL = os.environ.get('DATABASE_URL', None)
      
-
+PREDEFINED_KEYWORD = [
+    {"Keyword" : "변옥", "TagList" : ["변옥"]}
+  , {"Keyword" : "영식", "TagList" : ["영식"]}
+  , {"Keyword" : "변영", "TagList" : ["변옥", "영식"]}
+  , {"Keyword" : "1층", "TagList" : ["1층"]}
+  , {"Keyword" : "2층", "TagList" : ["2층"]}
+  , {"Keyword" : "3층", "TagList" : ["3층"]}
+  , {"Keyword" : "4층", "TagList" : ["4층"]}
+  , {"Keyword" : "구인", "TagList" : ["구인"]}
+  , {"Keyword" : "사장", "TagList" : ["사장팟"]}
+  , {"Keyword" : "모집", "TagList" : ["모집"]}
+]
 
 def initApiObject():
     
@@ -193,18 +204,38 @@ def getTweetListFromDatabase() :
         #conn = psycopg2.connect(dbname='dear42v48752o6', user='isaqnovgiqqjow', password='44fb147180e478a7059983d8e84b60b8aa48a1c0b2ce6c31689abb5398dc3787', host='ec2-44-206-11-200.compute-1.amazonaws.com', port=5432)
         cursor = conn.cursor()
 
-        sql = " SELECT * FROM {schema}.\"{table}\" ORDER BY InsDts DESC;".format(schema='public',table='Tweet')
+        sql = " SELECT tweetid, fulltext, tweeturl, insdts FROM {schema}.\"{table}\" ORDER BY InsDts DESC;".format(schema='public',table='Tweet')
         cursor.execute(sql)
         rows = cursor.fetchall()
-
-        print(rows)
 
         conn.commit()
         cursor.close()
         conn.close()
+
+        convertRows = []
+        for row in rows:
+            tweetID = row[0]
+            fullText = row[1]
+            tweetUrl = row[2]
+            insDts = row[3]
+            convertRow = {
+                tweetUrl : tweetUrl,
+                insDts : insDts,
+                fullText : fullText,
+                tagList : []
+            }
+            for keyword in PREDEFINED_KEYWORD:
+                if (keyword.Keyword in fullText) :
+                    convertRow.tagList.append(keyword.TagList)
+
+            convertRows.append(convertRow) 
+
+        return convertRows
+        
 
     except Exception as e:     
         if(conn):
             conn.close()
 
         print('except db connect : %s' % e)
+        return []
