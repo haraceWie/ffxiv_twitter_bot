@@ -221,7 +221,7 @@ def getTweetListFromDatabase() :
             convertRow = {
                 'TagList' : [],
                 'TweetUrl' : tweetUrl,
-                'InsDts' : insDts,
+                'InsDts' : str(insDts),
                 'FullText' : fullText,
             }
             for keyword in PREDEFINED_KEYWORD:
