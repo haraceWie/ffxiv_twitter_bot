@@ -25,8 +25,36 @@ PREDEFINED_KEYWORD = [
   , {"Keyword" : "3층", "TagList" : ["3층"]}
   , {"Keyword" : "4층", "TagList" : ["4층"]}
   , {"Keyword" : "구인", "TagList" : ["구인"]}
+  , {"Keyword" : "구직", "TagList" : ["구직"]}
   , {"Keyword" : "사장", "TagList" : ["사장팟"]}
   , {"Keyword" : "모집", "TagList" : ["모집"]}
+  , {"Keyword" : "1-2층", "TagList" : ["1층", "2층"]}
+  , {"Keyword" : "1-3층", "TagList" : ["1층", "2층", "3층"]}
+  , {"Keyword" : "1-4층", "TagList" : ["1층", "2층", "3층", "4층"]}
+  , {"Keyword" : "2-3층", "TagList" : ["2층", "3층"]}
+  , {"Keyword" : "2-4층", "TagList" : ["2층", "3층", "4층"]}
+  , {"Keyword" : "3-4층", "TagList" : ["3층", "4층"]}
+
+  , {"Keyword" : "1~2층", "TagList" : ["1층", "2층"]}
+  , {"Keyword" : "1~3층", "TagList" : ["1층", "2층", "3층"]}
+  , {"Keyword" : "1~4층", "TagList" : ["1층", "2층", "3층", "4층"]}
+  , {"Keyword" : "2~3층", "TagList" : ["2층", "3층"]}
+  , {"Keyword" : "2~4층", "TagList" : ["2층", "3층", "4층"]}
+  , {"Keyword" : "3~4층", "TagList" : ["3층", "4층"]}
+
+  , {"Keyword" : "1층-2층", "TagList" : ["1층", "2층"]}
+  , {"Keyword" : "1층-3층", "TagList" : ["1층", "2층", "3층"]}
+  , {"Keyword" : "1층-4층", "TagList" : ["1층", "2층", "3층", "4층"]}
+  , {"Keyword" : "2층-3층", "TagList" : ["2층", "3층"]}
+  , {"Keyword" : "2층-4층", "TagList" : ["2층", "3층", "4층"]}
+  , {"Keyword" : "3층-4층", "TagList" : ["3층", "4층"]}
+
+  , {"Keyword" : "1층~2층", "TagList" : ["1층", "2층"]}
+  , {"Keyword" : "1층~3층", "TagList" : ["1층", "2층", "3층"]}
+  , {"Keyword" : "1층~4층", "TagList" : ["1층", "2층", "3층", "4층"]}
+  , {"Keyword" : "2층~3층", "TagList" : ["2층", "3층"]}
+  , {"Keyword" : "2층~4층", "TagList" : ["2층", "3층", "4층"]}
+  , {"Keyword" : "3층~4층", "TagList" : ["3층", "4층"]}
 ]
 
 def initApiObject():
@@ -228,7 +256,7 @@ def getTweetListFromDatabase() :
                 if (keyword.get('Keyword') in fullText) :
                     for tag in keyword.get('TagList'):
                         convertRow.get('TagList').append(tag)
-                        
+
             convertRows.append(convertRow) 
 
         return convertRows
