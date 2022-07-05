@@ -23,6 +23,7 @@ PREDEFINED_KEYWORD = [
   , {"Keyword" : "절렉", "TagList" : ["절렉"]}
   , {"Keyword" : "절테마", "TagList" : ["절테마"]}
   , {"Keyword" : "절바하", "TagList" : ["절바하"]}
+  , {"Keyword" : "절용시", "TagList" : ["절용시"]}
 
   , {"Keyword" : "구인", "TagList" : ["구인"]}
   , {"Keyword" : "구직", "TagList" : ["구직"]}
