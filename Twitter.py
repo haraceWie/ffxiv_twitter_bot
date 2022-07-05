@@ -20,12 +20,20 @@ PREDEFINED_KEYWORD = [
     {"Keyword" : "변옥", "TagList" : ["변옥"]}
   , {"Keyword" : "영식", "TagList" : ["영식"]}
   , {"Keyword" : "변영", "TagList" : ["변옥", "영식"]}
-
+  , {"Keyword" : "절렉", "TagList" : ["절렉"]}
+  , {"Keyword" : "절테마", "TagList" : ["절테마"]}
+  , {"Keyword" : "절바하", "TagList" : ["절바하"]}
 
   , {"Keyword" : "구인", "TagList" : ["구인"]}
   , {"Keyword" : "구직", "TagList" : ["구직"]}
+  , {"Keyword" : "고정팟", "TagList" : ["고정팟"]}
   , {"Keyword" : "사장", "TagList" : ["사장팟"]}
-  , {"Keyword" : "모집", "TagList" : ["모집"]}
+  
+
+  , {"Keyword" : "구인", "TagList" : ["구인"]}
+  , {"Keyword" : "구직", "TagList" : ["구직"]}
+  , {"Keyword" : "고정팟", "TagList" : ["고정팟"]}
+  , {"Keyword" : "사장", "TagList" : ["사장팟"]}
 
   , {"Keyword" : "1층", "TagList" : ["1층"]}
   , {"Keyword" : "2층", "TagList" : ["2층"]}
