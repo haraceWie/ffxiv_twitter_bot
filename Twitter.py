@@ -281,7 +281,7 @@ def getTweetListFromDatabase() :
 
 
             convertRow = {
-                'TagList' : list(set(tagList.sort())),
+                'TagList' : list(set(sorted(tagList))),
                 'TweetUrl' : tweetUrl,
                 'InsDts' : str(insDts),
                 'FullText' : fullText,
