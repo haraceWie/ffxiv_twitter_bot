@@ -279,7 +279,7 @@ def getTweetListFromDatabase() :
                     for tag in keyword.get('TagList'):
                         tagList.append(tag)
 
-            tagList.sort(reverse=True)
+            tagList.sort()
 
             convertRow = {
                 'TagList' : list(set(tagList)),
