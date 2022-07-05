@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from flask import Flask, request, send_from_directory, make_response
+from flask_cors import CORS
 from http import HTTPStatus
 
 import Twitter, hashlib, hmac, base64, os, logging, json
@@ -8,7 +9,7 @@ CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET', None)
 CURRENT_USER_ID = os.environ.get('CURRENT_USER_ID', None)
 	     
 app = Flask(__name__)	
-
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route('/')
 def default_route():        
