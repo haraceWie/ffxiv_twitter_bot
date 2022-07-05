@@ -279,10 +279,9 @@ def getTweetListFromDatabase() :
                     for tag in keyword.get('TagList'):
                         tagList.append(tag)
 
-            tagList.sort()
 
             convertRow = {
-                'TagList' : list(set(tagList)),
+                'TagList' : list(set(tagList.sort())),
                 'TweetUrl' : tweetUrl,
                 'InsDts' : str(insDts),
                 'FullText' : fullText,
