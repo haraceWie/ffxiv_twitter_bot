@@ -256,7 +256,6 @@ def getTweetListFromDatabase() :
     conn = None
     try: 
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-        #conn = psycopg2.connect(dbname='dear42v48752o6', user='isaqnovgiqqjow', password='44fb147180e478a7059983d8e84b60b8aa48a1c0b2ce6c31689abb5398dc3787', host='ec2-44-206-11-200.compute-1.amazonaws.com', port=5432)
         cursor = conn.cursor()
 
         sql = " SELECT tweetid, fulltext, tweeturl, insdts FROM {schema}.\"{table}\" ORDER BY InsDts DESC;".format(schema='public',table='Tweet')
@@ -279,6 +278,9 @@ def getTweetListFromDatabase() :
                 if (keyword.get('Keyword') in fullText) :
                     for tag in keyword.get('TagList'):
                         tagList.append(tag)
+
+            tagList.sort(reverse=True)
+
             convertRow = {
                 'TagList' : list(set(tagList)),
                 'TweetUrl' : tweetUrl,
