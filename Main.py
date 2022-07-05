@@ -46,7 +46,7 @@ def getTweetListFromDatabase():
     return json.dumps({
         "success" : True,
         "result" : response
-    }, ensure_ascii=False, indent=4)   
+    }, ensure_ascii=False)   
 
 
 # 트위터 웹훅 수신부 
