@@ -226,8 +226,9 @@ def getTweetListFromDatabase() :
             }
             for keyword in PREDEFINED_KEYWORD:
                 if (keyword.get('Keyword') in fullText) :
-                    convertRow.get('TagList').append(keyword.get('TagList'))
-
+                    for tag in keyword.get('TagList'):
+                        convertRow.get('TagList').append(tag)
+                        
             convertRows.append(convertRow) 
 
         return convertRows
