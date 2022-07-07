@@ -258,7 +258,7 @@ def getTweetListFromDatabase() :
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cursor = conn.cursor()
 
-        sql = " SELECT tweetid, fulltext, tweeturl, insdts FROM {schema}.\"{table}\" ORDER BY InsDts DESC;".format(schema='public',table='Tweet')
+        sql = " SELECT TOP(50) tweetid, fulltext, tweeturl, insdts FROM {schema}.\"{table}\" ORDER BY InsDts DESC;".format(schema='public',table='Tweet')
         cursor.execute(sql)
         rows = cursor.fetchall()
 
