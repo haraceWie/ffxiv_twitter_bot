@@ -22,14 +22,11 @@ PREDEFINED_KEYWORD = [
   , {"Keyword" : "변영", "TagList" : ["변옥", "영식"]}
   , {"Keyword" : "절렉", "TagList" : ["절렉"]}
   , {"Keyword" : "절테마", "TagList" : ["절테마"]}
+  , {"Keyword" : "절 테마", "TagList" : ["절테마"]}
   , {"Keyword" : "절바하", "TagList" : ["절바하"]}
+  , {"Keyword" : "절 바하", "TagList" : ["절바하"]}
   , {"Keyword" : "절용시", "TagList" : ["절용시"]}
-
-  , {"Keyword" : "구인", "TagList" : ["구인"]}
-  , {"Keyword" : "구직", "TagList" : ["구직"]}
-  , {"Keyword" : "고정팟", "TagList" : ["고정팟"]}
-  , {"Keyword" : "사장", "TagList" : ["사장팟"]}
-  
+  , {"Keyword" : "절 용시", "TagList" : ["절용시"]}
 
   , {"Keyword" : "구인", "TagList" : ["구인"]}
   , {"Keyword" : "구직", "TagList" : ["구직"]}
