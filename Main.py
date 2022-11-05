@@ -50,6 +50,19 @@ def getTweetListFromDatabase():
     }, ensure_ascii=False)   
 
 
+# CRC CHECK
+@app.route("/api/tweets", methods=["GET"])
+def getTweetListFromDatabase():
+    
+
+    response = Twitter.getTweetListFromDatabase()
+
+    
+
+    return json.dumps(response, ensure_ascii=False)   
+
+
+
 # 트위터 웹훅 수신부 
 @app.route("/webhook", methods=["POST"])
 def twitterEventReceived():
