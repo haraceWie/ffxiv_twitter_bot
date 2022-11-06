@@ -56,10 +56,7 @@ def getTweetListFromDatabase():
 
     
 
-    return json.dumps({
-        "Items" : response,
-        "Count" : len(response)
-    }, ensure_ascii=False)   
+    return json.dumps(response, ensure_ascii=False)   
 
 
 
