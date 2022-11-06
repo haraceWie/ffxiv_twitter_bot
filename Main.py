@@ -40,7 +40,7 @@ def twitterCrcValidation():
 def getTweetListFromDatabase():
     
 
-    response = Twitter.getTweetListFromDatabase()
+    response = Twitter.getTweetListFromDatabase('')
     return json.dumps({
         "Items" : response,
         "Count" : len(response)
