@@ -257,7 +257,7 @@ def getTweetListFromDatabase(param) :
 
         sql = ""
         if(param):
-            sql = " SELECT tweetid, fulltext, tweeturl, insdts FROM {schema}.\"{table}\" WHERE fulltext LIKE '%" + param + "%' ORDER BY InsDts DESC LIMIT 200;".format(schema='public',table='Tweet')
+            sql = " SELECT tweetid, fulltext, tweeturl, insdts FROM {schema}.\"{table}\" WHERE fulltext LIKE '%".format(schema='public',table='Tweet') + param + "%' ORDER BY InsDts DESC LIMIT 200;"
         else :
             sql = " SELECT tweetid, fulltext, tweeturl, insdts FROM {schema}.\"{table}\" ORDER BY InsDts DESC LIMIT 200;".format(schema='public',table='Tweet')
             
