@@ -49,7 +49,7 @@ def getTweetListFromDatabase():
 
 # CRC CHECK
 @app.route("/api/party", methods=["GET"])
-def getTweetListFromDatabase():
+def getPartyList():
     
     param = request.args.get('search')
     response = Twitter.getTweetListFromDatabase(param)
