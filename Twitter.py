@@ -249,13 +249,18 @@ def processMentionEvent(eventObj):
     return None           
 
 
-def getTweetListFromDatabase() :
+def getTweetListFromDatabase(param) :
     conn = None
     try: 
         conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         cursor = conn.cursor()
 
-        sql = " SELECT tweetid, fulltext, tweeturl, insdts FROM {schema}.\"{table}\" ORDER BY InsDts DESC LIMIT 200;".format(schema='public',table='Tweet')
+        sql = ""
+        if(param):
+            sql = " SELECT tweetid, fulltext, tweeturl, insdts FROM {schema}.\"{table}\" WHERE fulltext LIKE '%" + param + "%' ORDER BY InsDts DESC LIMIT 200;".format(schema='public',table='Tweet')
+        else :
+            sql = " SELECT tweetid, fulltext, tweeturl, insdts FROM {schema}.\"{table}\" ORDER BY InsDts DESC LIMIT 200;".format(schema='public',table='Tweet')
+            
         cursor.execute(sql)
         rows = cursor.fetchall()
 
@@ -281,9 +286,10 @@ def getTweetListFromDatabase() :
                 'TweetUrl' : tweetUrl,
                 'InsDts' : str(insDts),
                 'FullText' : fullText,
+                'TweetID' : tweetID
             }
-            if(len(convertRow.get('TagList')) > 0):
-                convertRows.append(convertRow) 
+            #if(len(convertRow.get('TagList')) > 0):
+            convertRows.append(convertRow) 
 
         return convertRows
         

@@ -41,9 +41,6 @@ def getTweetListFromDatabase():
     
 
     response = Twitter.getTweetListFromDatabase()
-
-    
-
     return json.dumps({
         "Items" : response,
         "Count" : len(response)
@@ -51,15 +48,18 @@ def getTweetListFromDatabase():
 
 
 # CRC CHECK
-@app.route("/api/tweets", methods=["GET"])
+@app.route("/api/party", methods=["GET"])
 def getTweetListFromDatabase():
     
-
-    response = Twitter.getTweetListFromDatabase()
+    param = request.args.get('search')
+    response = Twitter.getTweetListFromDatabase(param)
 
     
 
-    return json.dumps(response, ensure_ascii=False)   
+    return json.dumps({
+        "Items" : response,
+        "Count" : len(response)
+    }, ensure_ascii=False)   
 
 
 
