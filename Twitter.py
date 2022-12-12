@@ -128,7 +128,7 @@ def processMentionEvent(eventObj):
 
 
     
-    if(replyUserScreenNm == 'FFXIV_PFinder' or replyOrgUserScreenNm == "FFXIV_PFinder" or replyUserScreenNm == 'FFIXV_14' or replyOrgUserScreenNm == "FFIXV_14" or replyOrgUserScreenNm == "uaplnslza6CHzO7" or replyUserScreenNm == "uaplnslza6CHzO7" ) :
+    if(replyUserScreenNm == 'FFXIV_PFinder' or replyOrgUserScreenNm == "FFXIV_PFinder" or replyUserScreenNm == 'FFIXV_14' or replyOrgUserScreenNm == "FFIXV_14" or replyOrgUserScreenNm == "uaplnslza6CHzO7" or replyUserScreenNm == "uaplnslza6CHzO7" or replyOrgUserScreenNm == "ff14_creamswoo" or replyUserScreenNm == "ff14_creamswoo" ) :
         try:
             bot.sendMessage(chat_id=TELEGRAM_CHAT_ID, text='FFXIV_PFinder Blocked\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, message))
         except:
