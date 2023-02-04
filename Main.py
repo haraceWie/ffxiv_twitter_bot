@@ -129,16 +129,18 @@ guard.init_app(app, User)
 # Initialize a local database for the example
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.getcwd(), 'database.db')}"
 db.init_app(app)
-# # Add users for the example
-# with app.app_context():
-#     db.create_all()
-#     if db.session.query(User).filter_by(username='Yasoob').count() < 1:
-#         db.session.add(User(
-#           username='Yasoob',
-#           password=guard.hash_password('strongpassword'),
-#           roles='admin'
-#             ))
-#     db.session.commit()
+
+
+# Add users for the example
+with app.app_context():
+    db.create_all()
+    # if db.session.query(User).filter_by(username='Yasoob').count() < 1:
+    #     db.session.add(User(
+    #       username='Yasoob',
+    #       password=guard.hash_password('strongpassword'),
+    #       roles='admin'
+    #         ))
+    db.session.commit()
 
 
 
