@@ -134,12 +134,18 @@ db.init_app(app)
 # Add users for the example
 with app.app_context():
     db.create_all()
-    # if db.session.query(User).filter_by(username='Yasoob').count() < 1:
-    #     db.session.add(User(
-    #       username='Yasoob',
-    #       password=guard.hash_password('strongpassword'),
-    #       roles='admin'
-    #         ))
+
+    #data = User.query.filter_by(userid=userid, password=password).first()
+    if db.session.query(User).filter_by(username='Yasoob').count() < 1:
+        user = User()
+        user.password = 'strongpassword'
+        user.username = 'Yasoob'
+        user.roles = 'Yasoob'
+        db.session.add(user)
+        # db.session.add(User(username='Yasoob',
+        #   password=guard.hash_password('strongpassword'),
+        #   roles='admin'
+        #     ))
     db.session.commit()
 
 
