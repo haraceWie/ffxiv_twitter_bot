@@ -133,7 +133,7 @@ db.init_app(app)
 
 # Add users for the example
 with app.app_context():
-    db.create_all()
+    db.create_all( checkfirst=True)
 
     #data = User.query.filter_by(userid=userid, password=password).first()
     if db.session.query(User).filter_by(username='Yasoob').count() < 1:
