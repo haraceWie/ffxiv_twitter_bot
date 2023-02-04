@@ -2,8 +2,8 @@
 from flask import Flask, request, send_from_directory, make_response
 from flask_cors import CORS
 from http import HTTPStatus
-# import flask_sqlalchemy
-# import flask_praetorian
+import flask_sqlalchemy
+import flask_praetorian
 
 import Twitter, hashlib, hmac, base64, os, logging, json
 
@@ -12,12 +12,13 @@ CURRENT_USER_ID = os.environ.get('CURRENT_USER_ID', None)
 	     
 app = Flask(__name__)	
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
-# app.config['SECRET_KEY'] = 'top secret'
-# app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
-# app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
 
-# db = flask_sqlalchemy.SQLAlchemy()
-# guard = flask_praetorian.Praetorian()
+app.config['SECRET_KEY'] = 'top secret'
+app.config['JWT_ACCESS_LIFESPAN'] = {'hours': 24}
+app.config['JWT_REFRESH_LIFESPAN'] = {'days': 30}
+
+db = flask_sqlalchemy.SQLAlchemy()
+guard = flask_praetorian.Praetorian()
 
 @app.route('/')
 def default_route():        
