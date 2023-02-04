@@ -4,7 +4,6 @@ from flask_cors import CORS
 from http import HTTPStatus
 import flask_sqlalchemy
 import flask_praetorian
-import flask_cors
 
 import Twitter, hashlib, hmac, base64, os, logging, json
 
