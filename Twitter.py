@@ -5,6 +5,8 @@ import telegram
 import psycopg2   
 import json
 import pymysql
+import datetime
+
 
 
 CONSUMER_KEY = os.environ.get('CONSUMER_KEY', None)
@@ -225,18 +227,27 @@ def processMentionEvent(eventObj):
             "tweeturl" : 'https://twitter.com/%s/status/%s' % (targetUserScreenNm, targetId)
         }]))
 
+        
+
         #sql = " INSERT INTO {schema}.\"{table}\"(tweetid, shorttext, fulltext, tweeturl) VALUES ('{tweetid}','{shorttext}','{fulltext}','{tweeturl}') ;".format(schema='public',table='Tweet',tweetid=targetId,shorttext=message,fulltext=replyContents,tweeturl='https://twitter.com/%s/status/%s' % (targetUserScreenNm, targetId))
         #cursor.execute(sql)
         conn.commit()
 
         cursor.close()
+
+        
         conn.close()
 
+        board_write('free', message, replyContents, 'admin', '최고관리자')
     except Exception as e:     
         if(conn):
             conn.close()
 
         print('except db connect : %s' % e)
+
+
+
+
     # #리트윗 성공 시 RT 완료이라는 답글을 단다
     # try:
     #     print('mention begin')
@@ -302,3 +313,76 @@ def getTweetListFromDatabase(param) :
 
         print('except db connect : %s' % e)
         return []
+
+
+def board_write(board, subject, content, mb_id, nickname):
+    # MySQL connection 및 cursor를 생성합니다.
+    conn = pymysql.connect(host = '203.245.44.84', 
+                           user = 'haracewie', 
+                           password = 'asas7146!!',
+                           db = 'haracewie ', 
+                           port=3306,
+                           charset = 'utf8')
+    curs = conn.cursor()
+    
+    ca_name = '기타'
+    wr_1 = '기타'
+    if ('용시' in content):
+        ca_name = '절용시'
+    elif  ('절렉' in content):
+        ca_name = '절렉'
+    elif  ('절테마' in content):
+        ca_name = '절테마'
+    elif  ('절바하' in content):
+        ca_name = '절바하'
+    elif  ('연영' in content):
+        ca_name = '연영'
+    elif  ('변영' in content):
+        ca_name = '변영'
+
+    if ('구인' in content):
+        wr_1 = '구인'
+    elif  ('구직' in content):
+        wr_1 = '구직'
+    elif  ('사장팟' in content):
+        wr_1 = '사장팟'
+
+
+    # wr_num을 구한 후 작성글을 INSERT 합니다.
+    sql = f"select wr_num from g5_write_{board}"
+    curs.execute(sql)
+    wr_num = str(int(curs.fetchone()[0]) - 1)
+    now = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') # 그누보드의 날짜 형식 준수 (ex: 2021-04-05 23:45:15)
+    sql = f"insert into g5_write_{board} set wr_num = {wr_num}, \
+          wr_reply = '', wr_comment = 0, ca_name = '{ca_name}', wr_option = 'html1', wr_subject = '{subject}', \
+          wr_content = '{content}', wr_link1 = '', wr_link2 = '', \
+          wr_link1_hit = 0, wr_link2_hit = 0, wr_hit = 1, wr_good = 0, wr_nogood = 0, \
+          mb_id = '{mb_id}', wr_password = '', wr_name = '{nickname}', wr_email = '', wr_homepage = '', \
+          wr_datetime = '{now}', wr_last = '{now}', wr_ip = '111.111.111.111', \
+          wr_1 = '{wr_1}', wr_2 = '', wr_3 = '', wr_4 = '', wr_5 = '', \
+          wr_6 = '', wr_7 = '', wr_8 = '', wr_9 = '', wr_10 = '', \
+          wr_comment_reply = '', wr_facebook_user = '', wr_twitter_user = '', \
+          as_re_name = '', as_tag = '', as_map = '', as_icon = '', as_thumb = '', as_video = ''"
+    curs.execute(sql)
+ 
+    # wr_id를 구한 후 부모 아이디에 UPDATE 합니다.
+    sql = f"select wr_id from g5_write_{board}"
+    curs.execute(sql)
+    wr_id = str(curs.fetchall()[-1][0])
+    sql = f"update g5_write_{board} set wr_parent = {wr_id} where wr_id = {wr_id}"
+    curs.execute(sql)
+ 
+    # 새 글을 INSERT 합니다.
+    sql = f"insert into g5_board_new ( bo_table, wr_id, wr_parent, bn_datetime, mb_id ) values \
+          ( '{board}', '{wr_id}', '{wr_id}', '{now}', '{mb_id}' )"
+    curs.execute(sql)
+ 
+    # 게시글을 1 증가시킵니다.
+    sql = f"select bo_count_write from g5_board where bo_table = '{board}'"
+    curs.execute(sql)
+    bo_count_write = str(int(curs.fetchone()[0]))
+    sql = f"update g5_board set bo_count_write = {bo_count_write} + 1 where bo_table = '{board}'"
+    curs.execute(sql)
+ 
+    # MySQL connection 닫기
+    conn.close()
