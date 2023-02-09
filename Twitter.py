@@ -4,6 +4,9 @@ import os
 import telegram
 import psycopg2   
 import json
+import pymysql
+from datetime import datetime
+
 
 CONSUMER_KEY = os.environ.get('CONSUMER_KEY', None)
 CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET', None)
