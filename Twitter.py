@@ -6,6 +6,7 @@ import psycopg2
 import json
 import pymysql
 import datetime
+import pytz
 
 
 
@@ -352,7 +353,9 @@ def board_write(board, subject, content, mb_id, nickname):
     sql = f"select wr_num from g5_write_{board}"
     curs.execute(sql)
     wr_num = str(int(curs.fetchone()[0]) - 1)
-    now = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S') # 그누보드의 날짜 형식 준수 (ex: 2021-04-05 23:45:15)
+
+    
+    now = datetime.datetime.today(pytz.timezone('Asia/Seoul')).strftime('%Y-%m-%d %H:%M:%S') # 그누보드의 날짜 형식 준수 (ex: 2021-04-05 23:45:15)
     sql = f"insert into g5_write_{board} set wr_num = {wr_num}, \
           wr_reply = '', wr_comment = 0, ca_name = '{ca_name}', wr_option = 'html1', wr_subject = '{subject}', \
           wr_content = '{content}', wr_link1 = '', wr_link2 = '', \
