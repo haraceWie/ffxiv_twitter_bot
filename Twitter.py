@@ -361,8 +361,7 @@ def board_write(board, subject, content, mb_id, nickname):
           wr_datetime = '{now}', wr_last = '{now}', wr_ip = '111.111.111.111', \
           wr_1 = '{wr_1}', wr_2 = '', wr_3 = '', wr_4 = '', wr_5 = '', \
           wr_6 = '', wr_7 = '', wr_8 = '', wr_9 = '', wr_10 = '', \
-          wr_comment_reply = '', wr_facebook_user = '', wr_twitter_user = '', \
-          as_re_name = '', as_tag = '', as_map = '', as_icon = '', as_thumb = '', as_video = ''"
+          wr_comment_reply = '', wr_facebook_user = '', wr_twitter_user = ''"
     curs.execute(sql)
  
     # wr_id를 구한 후 부모 아이디에 UPDATE 합니다.
