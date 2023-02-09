@@ -238,7 +238,7 @@ def processMentionEvent(eventObj):
         
         conn.close()
 
-        board_write('free', message, replyContents, 'admin', '최고관리자')
+        board_write('free', message, replyContents + '\nhttps://twitter.com/%s/status/%s' % (targetUserScreenNm, targetId), 'admin', '최고관리자')
     except Exception as e:     
         if(conn):
             conn.close()
