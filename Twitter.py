@@ -320,7 +320,7 @@ def board_write(board, subject, content, mb_id, nickname):
     conn = pymysql.connect(host = '203.245.44.84', 
                            user = 'haracewie', 
                            password = 'asas7146!!',
-                           db = 'haracewie ', 
+                           db = 'haracewie', 
                            port=3306,
                            charset = 'utf8')
     curs = conn.cursor()
