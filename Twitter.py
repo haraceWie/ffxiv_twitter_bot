@@ -332,22 +332,33 @@ def board_write(board, subject, content, mb_id, nickname):
         ca_name = '절용시'
     elif  ('절렉' in content):
         ca_name = '절렉'
+    elif  ('알렉' in content):
+        ca_name = '절렉'
     elif  ('절테마' in content):
         ca_name = '절테마'
     elif  ('절바하' in content):
         ca_name = '절바하'
     elif  ('연영' in content):
         ca_name = '연영'
+    elif  ('연옥' in content):
+        ca_name = '연영'
     elif  ('변영' in content):
         ca_name = '변영'
+    elif  ('변옥' in content):
+        ca_name = '변영'
+    elif  ('영식' in content):
+        ca_name = '연영'
 
-    if ('구인' in content):
+    if ('대타' in content):
+        wr_1 = '대타'
+    elif ('구인' in content):
         wr_1 = '구인'
     elif  ('구직' in content):
         wr_1 = '구직'
     elif  ('사장팟' in content):
         wr_1 = '사장팟'
-
+    elif  ('모출' in content):
+        wr_1 = '구인'
 
     # wr_num을 구한 후 작성글을 INSERT 합니다.
     sql = f"select wr_num from g5_write_{board}"
