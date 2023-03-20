@@ -166,7 +166,7 @@ def processMentionEvent(eventObj):
         blameList = ['공론화', 'evernote', '에버노트', '짜증', '공익', 'ㅅㅂ', 'ㅁㅊ', 'ㅆㅂ', '시발', '미친', '병신', 'ㅄ', 'ㅂㅅ', '메갈', '한남']
         #if(replyContents in blameList):
         if any(keyword in replyContents for keyword in blameList):
-            bot.sendMessage(chat_id=TELEGRAM_CHAT_ID, text='Filterd Blame\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, replyContents))
+            bot.sendMessage(chat_id=TELEGRAM_CHAT_ID, text='Filterd Blame Keyword\nhttps://twitter.com/%s/status/%s\n-> https://twitter.com/%s/status/%s\n%s' % (replyUserScreenNm, replyId, replyOrgUserScreenNm, originId, replyContents))
             return None
     except:
         print('except get tweetStatus')
